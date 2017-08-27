@@ -11,13 +11,14 @@ class DHT11:
 	_temperature = -256
 	_humidity    = 0
  
-	def __init__(self, GPIONpin):
+	def __init__(self, GPIOpin):
 		# Constructor of DHT11 - set data pin
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(GPIOpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 	def _getData():
 		# Private method for get sensor data
+		return
 
 	def getTemperature(self):
 		# Getter for temperature

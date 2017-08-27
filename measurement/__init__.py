@@ -1,1 +1,1 @@
-from dht11 import DHT11
+from .dht11 import DHT11
