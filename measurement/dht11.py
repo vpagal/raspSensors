@@ -5,20 +5,44 @@
 ###############################################################
 
 import RPi.GPIO as GPIO
+import time
 
 class DHT11:
+	_gpio_pin    = -1
 	_error_code  = ''
 	_temperature = -256
 	_humidity    = 0
  
 	def __init__(self, GPIOpin):
 		# Constructor of DHT11 - set data pin
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(GPIOpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		self._gpio_pin = GPIOpin
 
-	def _getData():
+	def _getData(self):
 		# Private method for get sensor data
+		# we will need first to send a high and then a low
+		# then we can get data listening on the same pin
+		# first set pin as out and then set it as input
+		GPIO.setmode(GPIO.BCM)
+
+		# set it as output. we will have to send a high and a low
+		GPIO.setup(self._gpio_pin, GPIO.OUT)
+
+		GPIO.output(self._gpio_pin,GPIO.HIGH)
+		sleep(0.05)
+
+		GPIO.output(self._gpio_pin,GPIO.LOW)
+		sleep(0.02)
+
+		# set it as input in order to read data from dht11
+		GPIO.setup(self._gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+		# get data
+		data = _parse_input()
+
 		return
+
+	def _parse_input(self):
+		return ''
 
 	def getTemperature(self):
 		# Getter for temperature
