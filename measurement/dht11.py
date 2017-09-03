@@ -103,9 +103,6 @@ class DHT11:
 
 		return data
 
-	#def _parse_data(self, data):
-	#	return ''
-
 	##########################################################################################
 	# External libraries
 	# Taken from other github contributor : szazo
