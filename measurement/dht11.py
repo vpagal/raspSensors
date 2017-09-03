@@ -37,11 +37,33 @@ class DHT11:
 		GPIO.setup(self._gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 		# get data
-		data = _parse_input()
+		raw_data = self._collect_data()
+
+		# parse data taken
+		data = self._parse_data()
 
 		return
 
-	def _parse_input(self):
+	def _collect_data(self):
+		unchanged_cnt     = 0
+		max_unchanged_cnt = 100
+
+		last_bit = -1
+		data     = []
+
+		while True:
+			set current = GPIO.input(self._gpio_pin)
+			if current != last:
+				unchanged_cnt = 0
+				last = current
+			else:
+				unchanged_cnt += 1
+				if unchanged_cnt > max_unchanged_cnt:
+					break
+
+		return data
+
+	def _parse_data(self):
 		return ''
 
 	def getTemperature(self):
