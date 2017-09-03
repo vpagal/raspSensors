@@ -39,7 +39,7 @@ class DHT11:
 		GPIO.setup(self._gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 		# get data
-		raw_data = self._collect_data()
+		raw_data = self.__collect_data()
 
 		if len(raw_data) == 0:
 			print("ERROR : No data returned!!")
@@ -83,7 +83,7 @@ class DHT11:
 
 	# Start of private methods
 
-	def _collect_data(self):
+	def __collect_data(self):
 		unchanged_cnt     = 0
 		max_unchanged_cnt = 100
 
@@ -111,6 +111,7 @@ class DHT11:
 	# Taken from other github contributor : szazo
 	##########################################################################################
 	def __parse_data_pull_up_lengths(self, data):
+
 		STATE_INIT_PULL_DOWN = 1
 		STATE_INIT_PULL_UP = 2
 		STATE_DATA_FIRST_PULL_DOWN = 3
