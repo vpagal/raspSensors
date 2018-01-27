@@ -69,6 +69,8 @@ class DHT11:
 		self._temperature = the_bytes[2]
 		self._humidity    = the_bytes[0]
 
+		GPIO.cleanup()
+
 		return
 
 	def getTemperature(self):
@@ -93,6 +95,7 @@ class DHT11:
 		while True:
 			current = GPIO.input(self._gpio_pin)
 			data.append(current)
+
 			if current != last:
 				unchanged_cnt = 0
 				last = current
@@ -122,7 +125,7 @@ class DHT11:
 
 		for i in range(len(data)):
 			current = data[i]
-			current_length + 1
+			current_length += 1
 
 			if state == STATE_INIT_PULL_DOWN:
 				if current == GPIO.LOW:
@@ -210,4 +213,7 @@ class DHT11:
 	# End of private methods
 
 if __name__ == '__main__' :
-	dht11 = DHT11('GPIO4')
+	dht11 = DHT11(4)
+	dht11.loadData()
+	print(dht11.getTemperature())
+	print(dht11.getHumidity())
